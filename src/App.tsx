@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import type { Song } from './mocked_information/Song/song.type'
+import { longestSongs } from './mocked_information/Song/song.info'
+import { sameCategorySongs } from './mocked_information/Song/song.info';
+import { artistSongs } from './mocked_information/Song/song.info';
+import { mostListenedSongs } from './mocked_information/Song/song.info';
+import SongList from './Components/SongList/SongList';
+import SongCard from './Components/SongCard/SongCard';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const longSongsList : Song[] = longestSongs;
+  const sameCategorySongsList : Song[] = sameCategorySongs;
+  const artistSongsList : Song[] = artistSongs;
+  const mostListenedSongsList : Song[] = mostListenedSongs;
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <SongList title = "Canciones de Mayor Duracion" >
+          {longSongsList.map((song) => (<SongCard key={song.id} props={song}/>))}
+      </SongList>
+      <SongList title = "Canciones de Misma Categoria">
+          {sameCategorySongsList.map((song) => (<SongCard key={song.id} props={song}/>))}
+      </SongList>
+      <SongList title = {`Canciones de ${artistSongs[0].artist}`}>
+          {artistSongsList.map((song) => (<SongCard key={song.id} props={song}/>))}
+      </SongList>
+      <SongList title = "Canciones Mas Escuchadas">
+          {mostListenedSongsList.map((song) => (<SongCard key={song.id} props={song}/>))}
+      </SongList>
     </>
   )
 }

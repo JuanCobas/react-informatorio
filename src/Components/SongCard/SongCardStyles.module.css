@@ -1,0 +1,30 @@
+.song {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.song img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.songInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.songTitle {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.songDetail {
+  color: #666;
+  font-size: 0.9rem;
+}
