@@ -6,6 +6,7 @@ import { artistSongs } from './mocked_information/Song/song.info';
 import { mostListenedSongs } from './mocked_information/Song/song.info';
 import SongList from './Components/SongList/SongList';
 import SongCard from './Components/SongCard/SongCard';
+import NavBar from './Components/NavBar/NavBar';
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <>
+      <NavBar/>
       <SongList title = "Canciones de Mayor Duracion" >
           {longSongsList.map((song) => (<SongCard key={song.id} props={song}/>))}
       </SongList>
