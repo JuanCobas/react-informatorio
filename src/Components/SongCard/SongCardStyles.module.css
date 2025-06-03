@@ -3,7 +3,16 @@
   align-items: center;
   gap: 16px;
   padding: 12px;
-  border-bottom: 1px solid #ccc;
+  border: 1px solid #444; 
+  border-radius: 8px;
+  background-color: #1e1e1e; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.song:hover {
+  background-color: #2a2a2a; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .song img {
@@ -14,17 +23,42 @@
 }
 
 .songInfo {
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
 }
 
 .songTitle {
   font-weight: bold;
-  margin-right: 8px;
+  font-size: 1.1rem;
+  height: 24px;
+  display: flex;
+  align-items: center;
 }
 
-.songDetail {
+.songDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   color: #666;
   font-size: 0.9rem;
+}
+
+.playButton {
+  margin-left: auto;
+  padding: 6px 12px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.playButton:hover {
+  background-color: #555;
+  transform: scale(1.1);
 }

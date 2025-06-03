@@ -23,6 +23,7 @@ function SongCard({props}: SongCardProps){
                         <span>Duración: {song.duration}</span>
                     </div>
                 </div>
+                <button className={styles.playButton}> ▶ </button>
 
             </article>
         </>
