@@ -1,0 +1,12 @@
+.songList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Separation between cards */
+  padding: 16px;
+}
+
+.songList h1 {
+  font-size: 1.5rem;
+  color: #fff; /* Assuming dark mode */
+  margin-bottom: 12px;
+}
