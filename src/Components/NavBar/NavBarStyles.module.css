@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  gap: 1rem; /* spacing between buttons */
+  flex-wrap: wrap;
+  justify-content: center; /* center them horizontally */
+  padding: 1rem;
+}
+
+.container a {
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.container a:hover {
+  background-color: #357ab7;
+}
