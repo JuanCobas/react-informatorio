@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import styles from "./SongListStyles.module.css";
+import SongPlayer from "../SongPlayer/SongPlayer";
 
 
 
@@ -18,7 +19,7 @@ function SongList(props: SongListProps){
             <article className={styles.songList}>
                 <h1>{title}</h1>
                 {children}
-                
+                <SongPlayer/>
             </article>
         </>
     )
