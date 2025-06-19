@@ -1,10 +1,18 @@
-import { useRef, useState} from "react";
+import { useRef, useState, type SyntheticEvent} from "react";
+import {formatTime} from './../../Utils/UtilsTime'
 
 function SongPlayer() {
     const audioRef = useRef<HTMLAudioElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [duration, setDuration] = useState<number>(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [isPlaying, setIsPlatying] = useState(false);
+    
+
 
     const handlePlay = () => {
         audioRef.current?.play();
+        setIsPlatying(true);
     }
 
     const handlVolume = (value: number) =>{
@@ -16,6 +24,7 @@ function SongPlayer() {
 
     const handlePause = () =>{
         audioRef.current?.pause();
+        setIsPlatying(false);
     }
 
     const handleStop = () =>{
@@ -23,6 +32,7 @@ function SongPlayer() {
         if(audioRef.current){
             audioRef.current?.pause();
             audioRef.current.currentTime = 0;
+            setIsPlatying(false);
         }
         
     }
@@ -30,22 +40,43 @@ function SongPlayer() {
     const handleTime = (value: number) => {
         if(audioRef.current){
             audioRef.current.currentTime = value;
+            
+        }
+    }
+
+    const handleTimeUpdate = (e: SyntheticEvent<HTMLAudioElement, Event>) => {
+        if(inputRef.current){
+            setCurrentTime(e.currentTarget.currentTime)
         }
     }
     
 
+    
+
     return(
         <>
-            <audio ref={audioRef} controls src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"></audio>
-            <button onClick={handlePlay}> ▶ </button>
+            <div>
+                <audio ref={audioRef} onEnded={() => setIsPlatying(false)} onLoadedMetadata={() => {if(audioRef.current){ setDuration(audioRef.current.duration)}}} onTimeUpdate={(e) =>handleTimeUpdate(e)} 
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"></audio>
 
-            <input type="range" value={audioRef.current?.currentTime} min="0" max={audioRef.current?.duration} step="1" 
-            onChange={(value) => handleTime(Number(value.target.value))} />
-
-            <input type="range" min="0" max="1" step="0.01" onChange={(value) => handlVolume(Number(value.target.value))} />
-            <button onClick={handlePause}> ⏸ </button>
-            <button onClick={handleStop}> ⏹ </button>
-
+                
+                
+                <div>
+                    <label htmlFor="time">{formatTime(currentTime)} / {formatTime(duration)}</label>
+                    <input id="time" ref={inputRef} value={currentTime} type="range" min="0" max={duration} step="0.001" 
+                    onChange={(value) => handleTime(Number(value.target.value))} />
+                    
+                </div>
+                
+                <div>
+                    {!isPlaying ? <button onClick={handlePlay}> ▶ </button> : <button onClick={handlePause}> ⏸ </button>}
+                    <button onClick={handleStop}> ⏹ </button>
+                    <label htmlFor="volume">Volumen</label>
+                    <input id="volume" type="range" min="0" max="1" step="0.01" onChange={(value) => handlVolume(Number(value.target.value))} />
+                </div>
+                
+                
+            </div>
         </>
     )
 
