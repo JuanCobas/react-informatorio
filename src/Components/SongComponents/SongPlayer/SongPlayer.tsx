@@ -1,12 +1,18 @@
 import { useRef, useState, type SyntheticEvent} from "react";
-import {formatTime} from './../../Utils/UtilsTime'
+import {formatTime} from '../../../Utils/UtilsTime'
 
-function SongPlayer() {
+type songPlayerProp = {
+    songUrl : string
+}
+
+function SongPlayer(props : songPlayerProp) {
     const audioRef = useRef<HTMLAudioElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [duration, setDuration] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [isPlaying, setIsPlatying] = useState(false);
+    const  {songUrl} = props;
+
     
 
 
@@ -57,15 +63,12 @@ function SongPlayer() {
         <>
             <div>
                 <audio ref={audioRef} onEnded={() => setIsPlatying(false)} onLoadedMetadata={() => {if(audioRef.current){ setDuration(audioRef.current.duration)}}} onTimeUpdate={(e) =>handleTimeUpdate(e)} 
-                src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"></audio>
+                src={songUrl}></audio>
 
-                
-                
                 <div>
                     <label htmlFor="time">{formatTime(currentTime)} / {formatTime(duration)}</label>
                     <input id="time" ref={inputRef} value={currentTime} type="range" min="0" max={duration} step="0.001" 
                     onChange={(value) => handleTime(Number(value.target.value))} />
-                    
                 </div>
                 
                 <div>

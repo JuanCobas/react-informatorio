@@ -1,17 +1,31 @@
-import type { Song } from "../../mocked_information/Song/song.type";
+import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from "./SongCardStyles.module.css"
+import SongPlayer from "../SongPlayer/SongPlayer";
+import { useRef, useState } from "react";
 
 interface SongCardProps {
-    props: Song
+    song: Song,
+    songUrl: string
+
 }
 
-function SongCard({props}: SongCardProps){
+function SongCard(props: SongCardProps){
 
-    const song: Song = props;
+    const {song, songUrl} = props;
+    const [articleClicked, setArticleClicked] = useState(false);
+
+    const handleArticleClick = () => {
+        if(articleClicked){
+            setArticleClicked(false);
+        }
+        else{
+            setArticleClicked(true);
+        }
+    }
 
     return (
         <>
-            <article className={styles.song}>
+            <article onClick={handleArticleClick} className={styles.song}>
                 <img src={song.picture} alt="Song Picture"/>
 
                 <div className={styles.songInfo}>
@@ -23,9 +37,10 @@ function SongCard({props}: SongCardProps){
                         <span>Duración: {song.duration}</span>
                     </div>
                 </div>
-                <button className={styles.playButton}> ▶ </button>
 
             </article>
+            {articleClicked ? <SongPlayer songUrl={songUrl}/> : null}
+            
         </>
     )
 
