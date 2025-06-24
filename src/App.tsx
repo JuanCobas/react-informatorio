@@ -1,5 +1,5 @@
 import './App.css'
-import type { Song } from './mocked_information/Song/song.type'
+
 import { longestSongs } from './mocked_information/Song/song.info'
 import { sameCategorySongs } from './mocked_information/Song/song.info';
 import { artistSongs } from './mocked_information/Song/song.info';
@@ -9,7 +9,7 @@ import SongCard from './Components/SongComponents/SongCard/SongCard';
 import NavBar from './Components/NavBar/NavBar';
 import SONG_URL from './mocked_information/song.URL';
 import SongFilterForm from './Components/SongComponents/SongFilterForm/songFilterForm';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   
