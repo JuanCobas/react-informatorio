@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 type SongFilterProp = {
     callback: (value: string) => void,
+    updateURL:(filter:string) =>void
 }
 
 function SongFilterForm(prop : SongFilterProp){
@@ -14,6 +15,7 @@ function SongFilterForm(prop : SongFilterProp){
         const value = e.target.value;
         setInput(value);
         prop.callback(value.toLowerCase())
+        prop.updateURL(value)
     }
 
     return (

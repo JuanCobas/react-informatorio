@@ -9,45 +9,38 @@ import SongCard from './Components/SongComponents/SongCard/SongCard';
 import NavBar from './Components/NavBar/NavBar';
 import SONG_URL from './mocked_information/song.URL';
 import SongFilterForm from './Components/SongComponents/SongFilterForm/songFilterForm';
-import { use, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
   
 
   const songsURL : string = SONG_URL;
-  const [filter, setFilter] = useState("");
-  const [filteredLongSongsList, setFilteredLongSongsList] = useState<Song[]>(longestSongs);
-  const [filteredSameCategorySongsList, setFilteredSameCategorySongsList] = useState<Song[]>(sameCategorySongs);
-  const [filteredArtistSongsList, setFilteredArtistSongsList] = useState<Song[]>(artistSongs);
-  const [filteredMostListenedSongsList, setFilteredMostListenedSongsList] = useState<Song[]>(mostListenedSongs);
 
+  const [URLQueryValue, setURlQueryValue] = useState(() => new URLSearchParams(window.location.search));
+  const [filter, setFilter] = useState(() => URLQueryValue.get("filter") ?? "");
   
-  useEffect(() => {
-    filterSong();
-  }, [filter]);
   
-  const filterSong = () => {
-    if(!filter){
-      setFilteredLongSongsList(longestSongs);
-      setFilteredSameCategorySongsList(sameCategorySongs);
-      setFilteredArtistSongsList(artistSongs);
-      setFilteredMostListenedSongsList(mostListenedSongs);
-    }
-    else{
-      setFilteredLongSongsList( longestSongs.filter((song) => song.title.toLowerCase().includes(filter)))
-      setFilteredSameCategorySongsList( sameCategorySongs.filter((song) => song.title.toLowerCase().includes(filter)))
-      setFilteredArtistSongsList( artistSongs.filter((song) => song.title.toLowerCase().includes(filter)))
-      setFilteredMostListenedSongsList( mostListenedSongs.filter((song) => song.title.toLowerCase().includes(filter)))
-    }
-    
-    
+  const filteredLongSongsList = longestSongs.filter((song) => song.title.toLowerCase().includes(filter.toLowerCase()));
+  const filteredSameCategorySongsList = sameCategorySongs.filter((song) => song.title.toLowerCase().includes(filter));
+  const filteredArtistSongsList = artistSongs.filter((song) => song.title.toLowerCase().includes(filter));
+  const filteredMostListenedSongsList = mostListenedSongs.filter((song) => song.title.toLowerCase().includes(filter));
+  
+  const setNewURLQuery = (filter:string) => {
+    const query = new URLSearchParams(window.location.search);
+    query.set("filter", filter);
+    setURlQueryValue(query);
+    const newURL = [window.location.pathname, query].filter(Boolean).join('?');
+    window.history.pushState({},"",newURL);
   }
 
+  
+
+  
 
   return (
     <>
       <NavBar/>
-      <SongFilterForm callback={setFilter}/>
+      <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
       <SongList title = "Canciones de Mayor Duracion" >
           {filteredLongSongsList.map((song) => (<SongCard key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
