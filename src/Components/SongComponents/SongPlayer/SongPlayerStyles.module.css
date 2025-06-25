@@ -57,9 +57,7 @@
 
 }
 .inputTimeContainer input{
-    padding: 10px;
     flex-grow: 1;
-    
 }
 
 .inputTimeContainer label{

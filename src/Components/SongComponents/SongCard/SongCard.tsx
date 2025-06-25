@@ -1,27 +1,23 @@
 import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from "./SongCardStyles.module.css"
 import SongPlayer from "../SongPlayer/SongPlayer";
-import { useState } from "react";
+
 
 interface SongCardProps {
     song: Song,
     songUrl: string,
-    
+    isSelect: boolean,
+    callback: (value:string) => void
 
 }
 
 function SongCard(props: SongCardProps){
 
     const {song, songUrl} = props;
-    const [articleClicked, setArticleClicked] = useState(false);
-
+    
     const handleArticleClick = () => {
-        if(articleClicked){
-            setArticleClicked(false);
-        }
-        else{
-            setArticleClicked(true);
-        }
+        
+            props.callback(song.id); 
     }
 
     return (
@@ -40,7 +36,7 @@ function SongCard(props: SongCardProps){
                 </div>
 
             </article>
-            {articleClicked ? <SongPlayer songUrl={songUrl}/> : null}
+            {props.isSelect ? <SongPlayer songUrl={songUrl}/> : null}
             
         </>
     )

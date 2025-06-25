@@ -33,22 +33,24 @@ function App() {
     window.history.pushState({},"",newURL);
   }
 
-  
+  const [selectedSong, setSelectedSong] = useState<string>("")
+
+
   return (
     <>
       <NavBar/>
       <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
       <SongList title = "Canciones de Mayor Duracion" >
-          {filteredLongSongsList.map((song) => (<SongCard key={song.id} song={song} songUrl={songsURL}/>))}
+          {filteredLongSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
       <SongList title = "Canciones de Misma Categoria">
-          {filteredSameCategorySongsList.map((song) => (<SongCard key={song.id} song={song} songUrl={songsURL}/>))}
+          {filteredSameCategorySongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
       <SongList title = {`Canciones de ${artistSongs[0].artist}`}>
-          {filteredArtistSongsList.map((song) => (<SongCard key={song.id} song={song} songUrl={songsURL}/>))}
+          {filteredArtistSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
       <SongList title = "Canciones Mas Escuchadas">
-          {filteredMostListenedSongsList.map((song) => (<SongCard key={song.id} song={song} songUrl={songsURL}/>))}
+          {filteredMostListenedSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
     </>
   )
