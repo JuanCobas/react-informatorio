@@ -38,8 +38,14 @@ function App() {
 
   return (
     <>
-      <NavBar/>
-      <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
+    <div>
+      <div className='navBar-Container'>
+        <NavBar/>
+      </div>
+      <div>
+        <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
+      </div>
+      
       <SongList title = "Canciones de Mayor Duracion" >
           {filteredLongSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
@@ -52,6 +58,8 @@ function App() {
       <SongList title = "Canciones Mas Escuchadas">
           {filteredMostListenedSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>
+    </div>
+      
     </>
   )
 }

@@ -3,7 +3,10 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  min-height: 100vh;
 }
+
+
 
 .logo {
   height: 6em;
@@ -39,4 +42,14 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.navBar-Container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: rgb(73, 173, 59);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 40px;
 }

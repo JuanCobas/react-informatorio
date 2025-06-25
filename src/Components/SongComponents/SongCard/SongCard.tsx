@@ -16,7 +16,6 @@ function SongCard(props: SongCardProps){
     const {song, songUrl} = props;
     
     const handleArticleClick = () => {
-        
             props.callback(song.id); 
     }
 
