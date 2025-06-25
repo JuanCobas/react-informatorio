@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import styles from "./SongListStyles.module.css";
-import SongPlayer from "../SongPlayer/SongPlayer";
 
 
 

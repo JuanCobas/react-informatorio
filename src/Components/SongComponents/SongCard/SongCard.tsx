@@ -1,11 +1,12 @@
 import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from "./SongCardStyles.module.css"
 import SongPlayer from "../SongPlayer/SongPlayer";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface SongCardProps {
     song: Song,
-    songUrl: string
+    songUrl: string,
+    
 
 }
 

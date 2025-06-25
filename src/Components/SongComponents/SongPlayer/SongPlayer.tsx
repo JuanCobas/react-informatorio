@@ -1,5 +1,6 @@
 import { useRef, useState, type SyntheticEvent} from "react";
 import {formatTime} from '../../../Utils/UtilsTime'
+import styles from './SongPlayerStyles.module.css'
 
 type songPlayerProp = {
     songUrl : string
@@ -65,15 +66,15 @@ function SongPlayer(props : songPlayerProp) {
                 <audio ref={audioRef} onEnded={() => setIsPlatying(false)} onLoadedMetadata={() => {if(audioRef.current){ setDuration(audioRef.current.duration)}}} onTimeUpdate={(e) =>handleTimeUpdate(e)} 
                 src={songUrl}></audio>
 
-                <div>
+                <div className={styles.inputTimeContainer}>
                     <label htmlFor="time">{formatTime(currentTime)} / {formatTime(duration)}</label>
                     <input id="time" ref={inputRef} value={currentTime} type="range" min="0" max={duration} step="0.001" 
                     onChange={(value) => handleTime(Number(value.target.value))} />
                 </div>
                 
-                <div>
-                    {!isPlaying ? <button onClick={handlePlay}> ▶ </button> : <button onClick={handlePause}> ⏸ </button>}
-                    <button onClick={handleStop}> ⏹ </button>
+                <div className={styles.buttonContainer}>
+                    {!isPlaying ? <button className={styles.playButton} onClick={handlePlay}> ▶ </button> : <button className={styles.playButton} onClick={handlePause}> ⏸ </button>}
+                    <button className={styles.stopButton} onClick={handleStop}> ⏹ </button>
                     <label htmlFor="volume">Volumen</label>
                     <input id="volume" type="range" min="0" max="1" step="0.01" onChange={(value) => handlVolume(Number(value.target.value))} />
                 </div>

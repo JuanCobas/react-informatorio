@@ -1,0 +1,67 @@
+.playButton {
+  margin: 0;
+  padding: 6px 12px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.playButton:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+.stopButton {
+  margin: 0;
+  padding: 6px 12px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.stopButton:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto;
+    width: fit-content;
+}
+.buttonContainer label{
+    margin: 0;
+}
+.buttonContainer input{
+    margin: 0;
+}
+
+
+
+.inputTimeContainer{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 60%;
+    margin: 0 auto;
+
+}
+.inputTimeContainer input{
+    padding: 10px;
+    flex-grow: 1;
+    
+}
+
+.inputTimeContainer label{
+    padding: 10px;
+}
