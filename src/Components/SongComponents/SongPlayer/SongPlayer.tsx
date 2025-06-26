@@ -3,7 +3,7 @@ import {formatTime} from '../../../Utils/UtilsTime'
 import styles from './SongPlayerStyles.module.css'
 
 type songPlayerProp = {
-    songUrl : string
+    songUrl : string,
 }
 
 function SongPlayer(props : songPlayerProp) {
@@ -63,7 +63,9 @@ function SongPlayer(props : songPlayerProp) {
     return(
         <>
             <div>
-                <audio ref={audioRef} onEnded={() => setIsPlatying(false)} onLoadedMetadata={() => {if(audioRef.current){ setDuration(audioRef.current.duration)}}} onTimeUpdate={(e) =>handleTimeUpdate(e)} 
+                <audio ref={audioRef} onEnded={() => setIsPlatying(false)} 
+                onLoadedMetadata={() => {if(audioRef.current){ setDuration(audioRef.current.duration)}}} 
+                onTimeUpdate={(e) =>handleTimeUpdate(e)} 
                 src={songUrl}></audio>
 
                 <div className={styles.inputTimeContainer}>

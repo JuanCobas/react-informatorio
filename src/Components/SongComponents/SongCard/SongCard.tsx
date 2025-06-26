@@ -3,6 +3,7 @@ import styles from "./SongCardStyles.module.css"
 import SongPlayer from "../SongPlayer/SongPlayer";
 
 
+
 interface SongCardProps {
     song: Song,
     songUrl: string,
@@ -15,8 +16,16 @@ function SongCard(props: SongCardProps){
 
     const {song, songUrl} = props;
     
+    
     const handleArticleClick = () => {
-            props.callback(song.id); 
+        if(props.isSelect){
+            props.callback("");
+            return
+        }
+        props.callback(song.id);        
+        
+            
+
     }
 
     return (
