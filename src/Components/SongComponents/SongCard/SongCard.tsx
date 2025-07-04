@@ -1,17 +1,36 @@
-import type { Song } from "../../mocked_information/Song/song.type";
+import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from "./SongCardStyles.module.css"
+import SongPlayer from "../SongPlayer/SongPlayer";
+
+
 
 interface SongCardProps {
-    props: Song
+    song: Song,
+    songUrl: string,
+    isSelect: boolean,
+    callback: (value:string) => void
+
 }
 
-function SongCard({props}: SongCardProps){
+function SongCard(props: SongCardProps){
 
-    const song: Song = props;
+    const {song, songUrl} = props;
+    
+    
+    const handleArticleClick = () => {
+        if(props.isSelect){
+            props.callback("");
+            return
+        }
+        props.callback(song.id);        
+        
+            
+
+    }
 
     return (
         <>
-            <article className={styles.song}>
+            <article onClick={handleArticleClick} className={styles.song}>
                 <img src={song.picture} alt="Song Picture"/>
 
                 <div className={styles.songInfo}>
@@ -23,9 +42,10 @@ function SongCard({props}: SongCardProps){
                         <span>Duración: {song.duration}</span>
                     </div>
                 </div>
-                <button className={styles.playButton}> ▶ </button>
 
             </article>
+            {props.isSelect ? <SongPlayer songUrl={songUrl}/> : null}
+            
         </>
     )
 

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import styles from "./SongListStyles.module.css";
 
 
@@ -18,7 +18,6 @@ function SongList(props: SongListProps){
             <article className={styles.songList}>
                 <h1>{title}</h1>
                 {children}
-                
             </article>
         </>
     )

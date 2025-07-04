@@ -4,10 +4,11 @@
   flex-wrap: wrap;
   justify-content: center; /* center them horizontally */
   padding: 1rem;
+  position: sticky;
 }
 
 .container a {
-  background-color: #4a90e2;
+  background-color: #2b5c36;
   color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
