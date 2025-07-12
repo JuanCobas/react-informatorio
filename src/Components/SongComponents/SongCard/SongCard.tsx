@@ -1,6 +1,7 @@
 import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from "./SongCardStyles.module.css"
 import SongPlayer from "../SongPlayer/SongPlayer";
+import { Link } from "react-router";
 
 
 
@@ -42,7 +43,7 @@ function SongCard(props: SongCardProps){
                         <span>Duración: {song.duration}</span>
                     </div>
                 </div>
-
+                <Link to={`/song/${song.id}`}>Ir a la Cancion</Link>
             </article>
             {props.isSelect ? <SongPlayer songUrl={songUrl}/> : null}
             

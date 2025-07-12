@@ -1,4 +1,5 @@
 import styles from './NavBarStyles.module.css'
+import { Link } from 'react-router';
 
 function NavBar() {
 
@@ -6,6 +7,7 @@ function NavBar() {
 
         <>
             <div className={styles.container}>
+                <Link to={'/'}>Home</Link>
                 <a href="#">Canciones mas largas</a>
                 <a href="#">Canciones de Pop</a>
                 <a href="#">Canciones de Ariana Sun</a>
