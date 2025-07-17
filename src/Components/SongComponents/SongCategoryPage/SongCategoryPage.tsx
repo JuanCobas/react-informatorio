@@ -1,16 +1,13 @@
-import './App.css'
+import { longestSongs, sameCategorySongs, artistSongs, mostListenedSongs } from '../../../mocked_information/Song/song.info'
 
-import { longestSongs } from './mocked_information/Song/song.info'
-import { sameCategorySongs } from './mocked_information/Song/song.info';
-import { artistSongs } from './mocked_information/Song/song.info';
-import { mostListenedSongs } from './mocked_information/Song/song.info';
-import SongList from './Components/SongComponents/SongList/SongList';
-import SongCard from './Components/SongComponents/SongCard/SongCard';
-import SONG_URL from './mocked_information/song.URL';
-import SongFilterForm from './Components/SongComponents/SongFilterForm/songFilterForm';
+import SongList from '../SongList/SongList';
+import SongCard from '../SongCard/SongCard';
+import SONG_URL from '../../../mocked_information/song.URL';
+import SongFilterForm from '../SongFilterForm/songFilterForm';
 import { useState } from 'react';
+import { useParams } from 'react-router';
 
-function HomePage() {
+function SongCategoryPage() {
   
 
   const songsURL : string = SONG_URL;
@@ -23,6 +20,8 @@ function HomePage() {
   const filteredSameCategorySongsList = sameCategorySongs.filter((song) => song.title.toLowerCase().includes(filter));
   const filteredArtistSongsList = artistSongs.filter((song) => song.title.toLowerCase().includes(filter));
   const filteredMostListenedSongsList = mostListenedSongs.filter((song) => song.title.toLowerCase().includes(filter));
+
+  const {id} = useParams();
   
   const setNewURLQuery = (filter:string) => {
     const query = new URLSearchParams(window.location.search);
@@ -43,22 +42,22 @@ function HomePage() {
         <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
       </div>
       
-      <SongList title = "Canciones de Mayor Duracion" >
+      {id === '1' && <SongList title = "Canciones de Mayor Duracion" >
           {filteredLongSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
-      <SongList title = "Canciones de Misma Categoria">
+      </SongList>}
+      {id === '2' && <SongList title = "Canciones de Misma Categoria">
           {filteredSameCategorySongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
-      <SongList title = {`Canciones de ${artistSongs[0].artist}`}>
+      </SongList>}
+      {id === '3' && <SongList title = {`Canciones de ${artistSongs[0].artist}`}>
           {filteredArtistSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
-      <SongList title = "Canciones Mas Escuchadas">
+      </SongList>}
+      {id === '4' && <SongList title = "Canciones Mas Escuchadas">
           {filteredMostListenedSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
+      </SongList>}
     </div>
       
     </>
   )
 }
 
-export default HomePage
+export default SongCategoryPage
