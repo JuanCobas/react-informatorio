@@ -6,6 +6,8 @@ import { mostListenedSongs } from '../../../mocked_information/Song/song.info';
 import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from './SongCardPageStyles.module.css'
 import { Link } from "react-router";
+import SongPlayer from "../SongPlayer/SongPlayer";
+import SONG_URL from "../../../mocked_information/song.URL";
 
 const getSong = (id:string|undefined) => {
         var song:Song | undefined;
@@ -41,6 +43,7 @@ function SongCardPage(){
                 <Link to={'/'}>Home</Link>
 
             </article>
+            <SongPlayer songUrl={SONG_URL}/>
         </>
     )
 
