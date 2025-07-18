@@ -6,6 +6,7 @@ import SONG_URL from '../../../mocked_information/song.URL';
 import SongFilterForm from '../SongFilterForm/songFilterForm';
 import { useState } from 'react';
 import { useParams } from 'react-router';
+import { useFavorites } from '../../../Contexts/FavoriteContext/FavoriteContext';
 
 function SongCategoryPage() {
   
@@ -14,14 +15,16 @@ function SongCategoryPage() {
 
   const [URLQueryValue, setURlQueryValue] = useState(() => new URLSearchParams(window.location.search));
   const [filter, setFilter] = useState(() => URLQueryValue.get("filter") ?? "");
-  
+  const { favorites } = useFavorites();
   
   const filteredLongSongsList = longestSongs.filter((song) => song.title.toLowerCase().includes(filter.toLowerCase()));
   const filteredSameCategorySongsList = sameCategorySongs.filter((song) => song.title.toLowerCase().includes(filter));
   const filteredArtistSongsList = artistSongs.filter((song) => song.title.toLowerCase().includes(filter));
   const filteredMostListenedSongsList = mostListenedSongs.filter((song) => song.title.toLowerCase().includes(filter));
+  const filteredFavoriteSong = favorites.filter((song) => song.title.toLowerCase().includes(filter));
 
   const {id} = useParams();
+  
   
   const setNewURLQuery = (filter:string) => {
     const query = new URLSearchParams(window.location.search);
@@ -53,6 +56,9 @@ function SongCategoryPage() {
       </SongList>}
       {id === '4' && <SongList title = "Canciones Mas Escuchadas">
           {filteredMostListenedSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
+      </SongList>}
+      {id === '5' && <SongList title = "Favoritos">
+          {filteredFavoriteSong.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
       </SongList>}
     </div>
       

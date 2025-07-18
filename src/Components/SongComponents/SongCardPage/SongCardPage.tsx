@@ -40,7 +40,7 @@ function SongCardPage(){
                         <span>Duración: {song.duration}</span>
                     </div>
                 </div>
-                <Link to={'/'}>Home</Link>
+                <Link className={styles.button} to={'/'}>Home</Link>
 
             </article>
             <SongPlayer songUrl={SONG_URL}/>

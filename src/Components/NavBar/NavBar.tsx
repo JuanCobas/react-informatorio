@@ -12,6 +12,7 @@ function NavBar() {
                 <Link to={'/category/2'}>Canciones de Pop</Link>
                 <Link to={'/category/3'}>Canciones de Ariana Sun</Link>
                 <Link to={'/category/4'}>Canciones mas Escuchadas</Link>
+                <Link to={'/category/5'}>Favoritos</Link>
                
             </div>
         </>
