@@ -1,14 +1,14 @@
 import './App.css'
 
-import { longestSongs } from './mocked_information/Song/song.info'
-import { sameCategorySongs } from './mocked_information/Song/song.info';
-import { artistSongs } from './mocked_information/Song/song.info';
-import { mostListenedSongs } from './mocked_information/Song/song.info';
+
 import SongList from './Components/SongComponents/SongList/SongList';
 import SongCard from './Components/SongComponents/SongCard/SongCard';
 import SONG_URL from './mocked_information/song.URL';
 import SongFilterForm from './Components/SongComponents/SongFilterForm/songFilterForm';
 import { useState } from 'react';
+import {musicService} from './mocked_information/Song/service'
+import type { Song } from './mocked_information/Song/song.type';
+import { useQuery} from '@tanstack/react-query';
 
 function HomePage() {
   
@@ -17,12 +17,12 @@ function HomePage() {
 
   const [URLQueryValue, setURlQueryValue] = useState(() => new URLSearchParams(window.location.search));
   const [filter, setFilter] = useState(() => URLQueryValue.get("filter") ?? "");
-  
-  
-  const filteredLongSongsList = longestSongs.filter((song) => song.title.toLowerCase().includes(filter.toLowerCase()));
-  const filteredSameCategorySongsList = sameCategorySongs.filter((song) => song.title.toLowerCase().includes(filter));
-  const filteredArtistSongsList = artistSongs.filter((song) => song.title.toLowerCase().includes(filter));
-  const filteredMostListenedSongsList = mostListenedSongs.filter((song) => song.title.toLowerCase().includes(filter));
+  const [selectedSong, setSelectedSong] = useState<string>("")
+  const { data: songs, isLoading, isError } = useQuery<Song[]>({
+  queryKey: ['songs', filter],
+  queryFn: () => musicService.searchSongs(filter),
+});
+
   
   const setNewURLQuery = (filter:string) => {
     const query = new URLSearchParams(window.location.search);
@@ -31,8 +31,7 @@ function HomePage() {
     const newURL = [window.location.pathname, query].filter(Boolean).join('?');
     window.history.pushState({},"",newURL);
   }
-
-  const [selectedSong, setSelectedSong] = useState<string>("")
+  
 
 
   return (
@@ -40,21 +39,15 @@ function HomePage() {
     <div>
       
       <div>
-        <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
+        <SongFilterForm inputValue={filter} callback={setFilter} updateURL={setNewURLQuery}/>
       </div>
+
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error loading songs</p>}
       
-      <SongList title = "Canciones de Mayor Duracion" >
-          {filteredLongSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
-      <SongList title = "Canciones de Misma Categoria">
-          {filteredSameCategorySongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
-      <SongList title = {`Canciones de ${artistSongs[0].artist}`}>
-          {filteredArtistSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
-      <SongList title = "Canciones Mas Escuchadas">
-          {filteredMostListenedSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>
+      {!isLoading && !isError && <SongList title = "Lista canciones" >
+          {(songs ?? []).map((song:Song) => (<SongCard isSelect={parseInt(selectedSong) === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
+      </SongList>}
     </div>
       
     </>

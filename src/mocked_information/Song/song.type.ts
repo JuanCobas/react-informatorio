@@ -1,9 +1,14 @@
 export type Song =  {
-    id: string;
+    id: number;
     title: string;
     artist: string;
     album: string;
+    year: number;
+    genre:string[];
+    duration: number;
+    rating: number;
+    cover:string;
+    description: string;
     category: string;
-    duration: string;
     picture: string;   
 };

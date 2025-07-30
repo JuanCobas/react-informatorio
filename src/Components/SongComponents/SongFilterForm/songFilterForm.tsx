@@ -2,13 +2,14 @@ import React, { useState } from "react";
 
 
 type SongFilterProp = {
+    inputValue: string;
     callback: (value: string) => void,
     updateURL:(filter:string) =>void
 }
 
 function SongFilterForm(prop : SongFilterProp){
 
-    const [input, setInput ] = useState('');
+    const [input, setInput ] = useState(prop.inputValue);
     
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {

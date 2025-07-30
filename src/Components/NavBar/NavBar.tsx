@@ -8,6 +8,7 @@ function NavBar() {
         <>
             <div className={styles.container}>
                 <Link to={'/'}>Home</Link>
+                <Link to={'/addSong'}>Agregar Cancion</Link>
                 <Link to={'/category/1'}>Canciones mas largas</Link>
                 <Link to={'/category/2'}>Canciones de Pop</Link>
                 <Link to={'/category/3'}>Canciones de Ariana Sun</Link>
