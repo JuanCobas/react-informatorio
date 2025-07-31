@@ -8,6 +8,7 @@ import HomePage from './HomePage.tsx'
 import SongCategoryPage from './Components/SongComponents/SongCategoryPage/SongCategoryPage.tsx'
 import { FavoritesProvider } from './Contexts/FavoriteContext/FavoriteContext.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AddSongForm from './Components/SongComponents/AddSongForm/AddSongForm.tsx'
 const queryClient = new QueryClient();
 
 
@@ -19,7 +20,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path='/' element={<App/>}>
           <Route index element={<HomePage />} />
-          <Route path='/addSong' element></Route>
+          <Route path='/addSong' element={<AddSongForm/>}></Route>
           <Route path='/category/:id' element={<SongCategoryPage/>}/>
           <Route path='/song/:id' element={<SongCardPage/>}/>
           <Route path='/favoritos'/>

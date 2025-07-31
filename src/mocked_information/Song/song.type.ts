@@ -9,6 +9,5 @@ export type Song =  {
     rating: number;
     cover:string;
     description: string;
-    category: string;
-    picture: string;   
+  
 };

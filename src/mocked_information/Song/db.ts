@@ -1,5 +1,7 @@
+import type { Song } from "./song.type";
+
 // Mock music database
-let musicDB = [
+const musicDB = [
   {
     id: 1,
     title: 'Bohemian Rhapsody',
@@ -116,7 +118,9 @@ let musicDB = [
 
 // Get next available ID
 export const getNextId = () => {
-  return Math.max(...musicDB.map((song) => song.id)) + 1;
+  const stored = localStorage.getItem('musicDB');
+  const songs = stored ? JSON.parse(stored) : musicDB;
+  return Math.max(...songs.map((song:Song) => song.id)) + 1;
 };
 
 export { musicDB };

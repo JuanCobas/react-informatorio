@@ -65,7 +65,7 @@ export const musicService = {
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : musicDB;
 
-    const genreMap = {};
+    const genreMap: { [genre: string]: Song[] } = {};
 
     songs.forEach((song:Song) => {
       song.genre.forEach((genre) => {
@@ -159,6 +159,7 @@ export const musicService = {
     if (!stored) {
         localStorage.setItem('musicDB', JSON.stringify(musicDB));
         }
-    }
+    },
+
 
 };
