@@ -39,7 +39,7 @@ function HomePage() {
     <div>
       
       <div>
-        <SongFilterForm inputValue={filter} callback={setFilter} updateURL={setNewURLQuery}/>
+        <SongFilterForm title='Filtrar canciones ' inputValue={filter} callback={setFilter} updateURL={setNewURLQuery}/>
       </div>
 
       {isLoading && <p>Loading...</p>}

@@ -7,6 +7,9 @@ import SongFilterForm from '../SongFilterForm/songFilterForm';
 import { useState } from 'react';
 import { useParams } from 'react-router';
 import { useFavorites } from '../../../Contexts/FavoriteContext/FavoriteContext';
+import { useQuery } from '@tanstack/react-query';
+import { musicService } from '../../../mocked_information/Song/service';
+import type { Song } from '../../../mocked_information/Song/song.type';
 
 function SongCategoryPage() {
   
@@ -16,12 +19,14 @@ function SongCategoryPage() {
   const [URLQueryValue, setURlQueryValue] = useState(() => new URLSearchParams(window.location.search));
   const [filter, setFilter] = useState(() => URLQueryValue.get("filter") ?? "");
   const { favorites } = useFavorites();
+
+  const { data: generoSongs, isLoading, isError } = useQuery<{genre: string; songs: Song[];}[]>({
+  queryKey: ['songs',],
+  queryFn: musicService.getGenres,
+});
+
   
-  const filteredLongSongsList = longestSongs.filter((song) => song.title.toLowerCase().includes(filter.toLowerCase()));
-  const filteredSameCategorySongsList = sameCategorySongs.filter((song) => song.title.toLowerCase().includes(filter));
-  const filteredArtistSongsList = artistSongs.filter((song) => song.title.toLowerCase().includes(filter));
-  const filteredMostListenedSongsList = mostListenedSongs.filter((song) => song.title.toLowerCase().includes(filter));
-  const filteredFavoriteSong = favorites.filter((song) => song.title.toLowerCase().includes(filter));
+  
 
   const {id} = useParams();
   
@@ -34,7 +39,17 @@ function SongCategoryPage() {
     window.history.pushState({},"",newURL);
   }
 
-  const [selectedSong, setSelectedSong] = useState<string>("")
+
+const getSongsByGenre = (genre: string) => {
+   if (!generoSongs) return []; 
+
+  const genreObject = generoSongs.find(({ genre: g }) => g === genre);
+  return genreObject ? genreObject.songs : [];
+};
+
+const songs:Song[] = getSongsByGenre(id!);
+
+const [selectedSong, setSelectedSong] = useState<string>("")
 
 
   return (
@@ -42,24 +57,25 @@ function SongCategoryPage() {
     <div>
       
       <div>
-        <SongFilterForm callback={setFilter} updateURL={setNewURLQuery}/>
+        <SongFilterForm title={'Filtrar por Nombre de cancion '} inputValue={filter} callback={setFilter} updateURL={setNewURLQuery}/>
       </div>
+
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error loading songs</p>}
       
-      {id === '1' && <SongList title = "Canciones de Mayor Duracion" >
-          {filteredLongSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>}
-      {id === '2' && <SongList title = "Canciones de Misma Categoria">
-          {filteredSameCategorySongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>}
-      {id === '3' && <SongList title = {`Canciones de ${artistSongs[0].artist}`}>
-          {filteredArtistSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>}
-      {id === '4' && <SongList title = "Canciones Mas Escuchadas">
-          {filteredMostListenedSongsList.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>}
-      {id === '5' && <SongList title = "Favoritos">
-          {filteredFavoriteSong.map((song) => (<SongCard isSelect={selectedSong === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
-      </SongList>}
+      {id==='Favoritos' ? 
+        <SongList title = {id!} >
+          {favorites.map((song) => (song.title.toLowerCase().includes(filter) && <SongCard isSelect={parseInt(selectedSong) === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
+        </SongList> 
+        
+        :
+
+        <SongList title = {id!} >
+          {songs.map((song) => (song.title.toLowerCase().includes(filter) && <SongCard isSelect={parseInt(selectedSong) === song.id} callback={setSelectedSong} key={song.id} song={song} songUrl={songsURL}/>))}
+        </SongList>
+      }
+      
+      
     </div>
       
     </>

@@ -75,7 +75,7 @@ export const musicService = {
         genreMap[genre].push(song);
       });
     });
-
+    
     // Convert to array format with genre name and songs
     return Object.keys(genreMap)
       .map((genre) => ({
