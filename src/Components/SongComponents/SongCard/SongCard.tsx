@@ -48,7 +48,7 @@ function SongCard(props: SongCardProps){
     }
 
     const checkSongInFavorite = () => {
-        if(favorites.includes(song)){
+        if(favorites.some(fav => fav.id === song.id)){
             setIsFavorite(true)
             return true
         }

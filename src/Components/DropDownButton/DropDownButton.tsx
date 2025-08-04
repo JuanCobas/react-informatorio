@@ -7,30 +7,30 @@ type butonProp = {
 }
 
 function DropdownButton(butonProp:butonProp) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [abierto, setabierto] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setabierto(!abierto);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
+        setabierto(false);
       }
     };
 
-    if (isOpen) {
+    if (abierto) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
     }
 
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]);
+  }, [abierto]);
 
   const handleOptionClick = (option: string) => {
-    setIsOpen(false);
+    setabierto(false);
     navigate(`/category/${option}`)
     
   };
@@ -41,7 +41,7 @@ function DropdownButton(butonProp:butonProp) {
         Generos ▾
       </button>
 
-      {isOpen && (
+      {abierto && (
         <div className={styles.dropdownMenu}>
             {butonProp.generos.map((genero) => <button onClick={() => handleOptionClick(genero)}>{genero}</button>)}
         </div>
