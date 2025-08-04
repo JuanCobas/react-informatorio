@@ -6,26 +6,20 @@ import type { Song } from '../../mocked_information/Song/song.type';
 import { musicService } from '../../mocked_information/Song/service';
 
 function NavBar() {
+  const { data: generoSongs, isLoading, isError } = useQuery<{ genre: string; songs: Song[] }[]>({
+    queryKey: ['songs'],
+    queryFn: musicService.getGenres,
+  });
 
-    const { data: generoSongs, isLoading, isError } = useQuery<{genre: string; songs: Song[];}[]>({
-  queryKey: ['songs',],
-  queryFn: musicService.getGenres,
-});
+  const generos: string[] = generoSongs?.map(({ genre }) => genre) || [];
 
-    const generos: string[] = generoSongs?.map(({genre}) => genre) || [];
-
-    return (
-
-        <>
-            <div className={styles.container}>
-                <Link to={'/'}>Home</Link>
-                <Link to={'/addSong'}>Agregar Cancion</Link>
-                <Link to={'/category/Favoritos'}>Favoritos</Link>
-                <DropdownButton generos={generos}/>
-            </div>
-        </>
-    )
-
+  return (
+    <div className={styles.container}>
+      <Link to="/">Home</Link>
+      <Link to="/addSong">Agregar Canción</Link>
+      <Link to="/category/Favoritos">Favoritos</Link>
+      <DropdownButton generos={generos} />
+    </div>
+  );
 }
-
-export default NavBar;
+export default NavBar

@@ -57,7 +57,7 @@ const [selectedSong, setSelectedSong] = useState<string>("")
     <div>
       
       <div>
-        <SongFilterForm title={'Filtrar por Nombre de cancion '} inputValue={filter} callback={setFilter} updateURL={setNewURLQuery}/>
+        <SongFilterForm title={'Filtrar canciones... '} inputValue={filter} callback={setFilter} updateURL={setNewURLQuery}/>
       </div>
 
       {isLoading && <p>Loading...</p>}

@@ -23,8 +23,7 @@ function SongFilterForm(prop : SongFilterProp){
     return (
         <>
             <form action="">
-                <label htmlFor="nameInput">{prop.title}</label>
-                <input value={input} onChange={handleChange} id="nameInput" type="text" />
+                <input value={input} placeholder={prop.title} onChange={handleChange} id="nameInput" type="text" />
             </form>
         </>
     )
