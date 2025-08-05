@@ -10,7 +10,9 @@ import SongPlayer from "../SongPlayer/SongPlayer";
 import SONG_URL from "../../../mocked_information/song.URL";
 import { useQuery} from '@tanstack/react-query';
 import {musicService} from '../../../mocked_information/Song/service'
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useFavorites } from "../../../Contexts/FavoriteContext/FavoriteContext";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 
 
@@ -19,14 +21,54 @@ function SongCardPage(){
     const { data: song, isLoading, isError } = useQuery<Song>({
     queryKey: ['song', id],
     queryFn: () => musicService.getSongById(id!.toString()),
+    
+    
 });
+
+    const [isFavorite, setIsFavorite] = useState(false);
+    
+    const { favorites, setFavorites } = useFavorites();
+
+
+    const add = () => {
+        if(song){
+            setFavorites([...favorites, song]);
+            setIsFavorite(true)          
+        }
+        
+    }
+    const remove = () => {
+        if(song){
+            setFavorites(favorites.filter(s => s.id !== song.id));
+            setIsFavorite(false)    
+        }
+        
+    }
+        
+    useEffect(() => {
+    if (song) {
+        checkSongInFavorite();
+    }
+    }, [favorites, song])
+
+    const checkSongInFavorite = () => {
+    if (!song) return false;
+    if (favorites.some(fav => fav.id === song.id)) {
+        setIsFavorite(true);
+        return true;
+    } else {
+        setIsFavorite(false);
+        return false;
+    }
+    }
     if(isLoading){
         return <>Cargando...</>
     }
     if(song == undefined || isError)
     {
         return <>Cancion no encontrada!</>
-    }
+    } 
+
     return(
         <>
             <article className={styles.song}>
@@ -44,6 +86,8 @@ function SongCardPage(){
                     </div>
                 </div>
                 <Link className={styles.button} to={'/'}>Home</Link>
+                {isFavorite ? <button title="Eliminar de Favoritos" className={styles.button} onClick={(e) => {e.stopPropagation(); remove()}}><FaHeart style={{ color: 'red' }}/></button> : 
+                <button title="Agregar a Favoritos" className={styles.button} onClick={(e)=>{e.stopPropagation(); add()}}><FaRegHeart /></button>}
 
             </article>
             <SongPlayer songUrl={SONG_URL}/>

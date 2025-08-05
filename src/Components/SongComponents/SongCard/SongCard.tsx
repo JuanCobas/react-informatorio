@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { useFavorites } from "../../../Contexts/FavoriteContext/FavoriteContext";
 import React from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 
 
@@ -75,8 +76,8 @@ function SongCard(props: SongCardProps){
                     </div>
                 </div>
                 <Link className={styles.button} to={`/song/${song.id}`}>Ir a la Cancion</Link>
-                {isFavorite ? <button className={styles.button} onClick={(e) => {e.stopPropagation(); remove()}}>Eliminar de Favoritos</button> : 
-                <button className={styles.button} onClick={(e)=>{e.stopPropagation(); add()}}>Agregar a Favoritos</button>}
+                {isFavorite ? <button title="Eliminar de Favoritos" className={styles.button} onClick={(e) => {e.stopPropagation(); remove()}}><FaHeart style={{ color: 'red' }}/></button> : 
+                <button title="Agregar a Favoritos" className={styles.button} onClick={(e)=>{e.stopPropagation(); add()}}><FaRegHeart /></button>}
             </article>
             {props.isSelect ? <SongPlayer songUrl={songUrl}/> : null}
             
