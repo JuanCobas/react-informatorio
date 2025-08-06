@@ -1,8 +1,4 @@
 import { useParams } from "react-router";
-import { longestSongs } from '../../../mocked_information/Song/song.info';
-import { sameCategorySongs } from '../../../mocked_information/Song/song.info';
-import { artistSongs } from '../../../mocked_information/Song/song.info';
-import { mostListenedSongs } from '../../../mocked_information/Song/song.info';
 import type { Song } from "../../../mocked_information/Song/song.type";
 import styles from './SongCardPageStyles.module.css'
 import { Link } from "react-router";

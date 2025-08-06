@@ -12,6 +12,9 @@ function NavBar() {
     queryFn: musicService.getGenres,
   });
 
+  const cargando: string[] = ["cargando..."]
+  const error: string[] = ["error"]
+
   const generos: string[] = generoSongs?.map(({ genre }) => genre) || [];
 
   return (
@@ -26,7 +29,9 @@ function NavBar() {
       <Link to="/"><FaHome className={styles.homeIcon}/></Link>
       <Link to="/addSong">Agregar Canción</Link>
       <Link to="/category/Favoritos">Favoritos</Link>
-      <DropdownButton generos={generos} />
+      {isLoading && <DropdownButton generos={cargando}/>}
+      {isError && <DropdownButton generos={error}/>}
+      {!isLoading && !isError && <DropdownButton generos={generos} />}
     </div>
 
     <div className={styles.spacer}></div>
