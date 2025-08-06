@@ -80,6 +80,9 @@ function SongCardPage(){
                         <span>Año: {song.year}</span>
                         <span>Rating: {song.rating}</span>
                     </div>
+                    <div className={styles.songDetails}>
+                        <span>Descripción: {song.description}</span>
+                    </div>
                 </div>
                 <Link className={styles.button} to={'/'}>Home</Link>
                 {isFavorite ? <button title="Eliminar de Favoritos" className={styles.button} onClick={(e) => {e.stopPropagation(); remove()}}><FaHeart style={{ color: 'red' }}/></button> : 
