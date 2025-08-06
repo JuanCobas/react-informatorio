@@ -1,0 +1,81 @@
+.card {
+  background-color: #1d1616;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.input,
+.textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.genreList {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+.genreItem {
+  display: flex;
+  justify-content: space-between;
+  background-color: #161313;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.3rem;
+}
+
+.addGenreGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.successMessage {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 6px;
+  max-width: 500px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.button {
+  margin-left: auto;
+  padding: 6px 12px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}

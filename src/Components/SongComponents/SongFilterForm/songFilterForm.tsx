@@ -2,13 +2,15 @@ import React, { useState } from "react";
 
 
 type SongFilterProp = {
+    inputValue: string;
     callback: (value: string) => void,
-    updateURL:(filter:string) =>void
+    updateURL:(filter:string) =>void,
+    title:string
 }
 
 function SongFilterForm(prop : SongFilterProp){
 
-    const [input, setInput ] = useState('');
+    const [input, setInput ] = useState(prop.inputValue);
     
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +23,7 @@ function SongFilterForm(prop : SongFilterProp){
     return (
         <>
             <form action="">
-                <label htmlFor="nameInput">Filtrar por Nombre de cancion</label>
-                <input value={input} onChange={handleChange} id="nameInput" type="text" />
+                <input value={input} placeholder={prop.title} onChange={handleChange} id="nameInput" type="text" />
             </form>
         </>
     )
