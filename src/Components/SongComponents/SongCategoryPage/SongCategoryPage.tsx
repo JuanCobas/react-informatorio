@@ -1,5 +1,3 @@
-import { longestSongs, sameCategorySongs, artistSongs, mostListenedSongs } from '../../../mocked_information/Song/song.info'
-
 import SongList from '../SongList/SongList';
 import SongCard from '../SongCard/SongCard';
 import SONG_URL from '../../../mocked_information/song.URL';
